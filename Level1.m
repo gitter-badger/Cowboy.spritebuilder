@@ -19,18 +19,10 @@
     
     [super onEnter];
     
-    cowboy = [CCBReader load:@"shoot"];
-    NSLog(@"cowboy idle level1");
-    
-    CGSize s = [CCDirector sharedDirector].viewSize;
-    [cowboy setPosition:ccp(s.width/4, s.height/2)];
-    
-    NSLog(@"cowboy idle level1");
-    
-    [self addChild:cowboy];
-    [cowboy.animationManager runAnimationsForSequenceNamed:@"shoot"];
     
 }
+
+
 
 
 @end

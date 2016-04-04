@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 
 @interface Level1 : CCNode {
-    CCNode * cowboy;
+    
     
 }
 

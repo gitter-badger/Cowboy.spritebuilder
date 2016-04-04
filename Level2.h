@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 
 @interface Level2 : CCScene {
-    
+    CCNode * cowboy;
 }
 
 +(Level2 *)scene;
