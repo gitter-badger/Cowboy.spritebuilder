@@ -85,6 +85,13 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+		<key>ccbResources/Button.png</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+		</dict>
 		<key>ccbResources/ccbButtonHighlighted.png</key>
 		<dict>
 			<key>scaleFrom</key>
