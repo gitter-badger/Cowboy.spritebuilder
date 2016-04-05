@@ -85,12 +85,21 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+<<<<<<< HEAD
 		<key>ccbResources/CowboyGirl</key>
 		<dict>
 			<key>isDirty</key>
 			<true/>
 			<key>isSmartSpriteSheet</key>
 			<true/>
+=======
+		<key>ccbResources/Button.png</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+>>>>>>> origin/BurakÜstün
 		</dict>
 		<key>ccbResources/ccbButtonHighlighted.png</key>
 		<dict>
