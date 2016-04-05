@@ -10,6 +10,10 @@
 #import "cocos2d.h"
 
 @interface Level2 : CCScene {
+    
+    NSTimer* timer;
+    
+    
     CCSprite * cowboy;
     NSMutableArray * runningDizi;
     CCAnimation* running;
@@ -21,6 +25,8 @@
     
     CCPhysicsNode * _physicsNode;
     
+    CCButton *_btnSag;
+    CCButton *_btnSol;
     
     
     CCActionAnimate * runAnimation;

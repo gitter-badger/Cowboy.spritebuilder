@@ -39,6 +39,7 @@
     [super onEnter];
     NSLog(@"giricek level2");
     
+    timer =[NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(zaman) userInfo:nil repeats:YES];
     
     CGSize s = [CCDirector sharedDirector].viewSize;
    
@@ -47,7 +48,7 @@
     
     cowboy =[CCSprite spriteWithImageNamed:@"CowboyGirl/Idle (1).png"];
     cowboy.scale*=0.6;
-     [cowboy setPosition:ccp(s.width*0.4, s.height*0.5)];
+     [cowboy setPosition:ccp(s.width*0.2, s.height*0.5)];
     
     //-----------KOŞMA AYARLARI---------------------------
     runningDizi = [NSMutableArray array];
@@ -56,9 +57,10 @@
     }
     
     
-    running =[CCAnimation animationWithSpriteFrames:runningDizi delay:0.075f];
+    running =[CCAnimation animationWithSpriteFrames:runningDizi delay:0.03f];
     runAnimation = [CCActionAnimate actionWithAnimation:running];
-    runAnimation = [CCActionRepeatForever actionWithAction:runAnimation];
+    //runAnimation = [CCActionRepeatForever actionWithAction:runAnimation];
+    runAnimation.tag=1;
     NSLog(@"cowboy idle level1");
     
     
@@ -69,9 +71,10 @@
     }
     
     
-    idling =[CCAnimation animationWithSpriteFrames:idlingDizi delay:0.075f];
+    idling =[CCAnimation animationWithSpriteFrames:idlingDizi delay:0.025f];
     idleAnimation = [CCActionAnimate actionWithAnimation:idling];
-    idleAnimation = [CCActionRepeatForever actionWithAction:idleAnimation];
+    [idleAnimation setTag:2];
+    //idleAnimation = [CCActionRepeatForever actionWithAction:idleAnimation];
 
     //------------------------------------------------
     
@@ -97,23 +100,27 @@
     
     CGPoint touchLocation = [touch locationInNode:self];
      CGSize s = [CCDirector sharedDirector].viewSize;
+    
     if ((touchLocation.x<s.width) && (touchLocation.y<s.height) ){
-        
+        /*
+        if (CGRectContainsPoint(_btnSag.boundingBox, touchLocation)) {
+            NSLog(@"BTNSAG DOKANDI LAA");
+            [cowboy stopAllActions];
+            [cowboy runAction:runAnimation];
+            
+            if (cowboy.position.x>220) {
+                CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.1 position:CGPointMake(_scrollView.position.x-10.0f, _scrollView.position.y)];
+                [_scrollView runAction:YerDegistir];
+            }
+            else{
+                
+                CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.1 position:CGPointMake(cowboy.position.x+10.0f, cowboy.position.y)];
+                [cowboy runAction:YerDegistir];
+                
+            }
+        }
         //[self removeChild:cowboy];
-        NSLog(@"DOKANDI LAA");
-        [cowboy stopAllActions];
-        [cowboy runAction:runAnimation];
         
-        if (cowboy.position.x>150) {
-            CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.1 position:CGPointMake(_scrollView.position.x-10.0f, _scrollView.position.y)];
-            [_scrollView runAction:YerDegistir];
-        }
-        else{
-        
-            CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.1 position:CGPointMake(cowboy.position.x+10.0f, cowboy.position.y)];
-            [cowboy runAction:YerDegistir];
-
-        }
         
         //[cowboy setPosition:ccp(cowboy.position.x+1.0f,cowboy.position.y)];
         //cowboy =[CCBReader load:@"running"];
@@ -123,7 +130,7 @@
         
         //[cowboy.animationManager runAnimationsForSequenceNamed:@"idle"];
         //[self addChild:cowboy];
-        
+        */
     }
     
     
@@ -139,10 +146,10 @@ if ((touchLocation.x<s.width) && (touchLocation.y<s.height) ){
     
     //[self removeChild:cowboy];
     NSLog(@"DOKANMA Bittii");
-    [cowboy stopAllActions];
-    [cowboy runAction:idleAnimation];
     //cowboy =[CCBReader load:@"idle"];
     //cowboy.scale*=0.6;
+    CGPoint impulse = ccp(0.0f, 50.0f);
+    [cowboy.physicsBody applyImpulse:impulse];
     //[cowboy setPosition:ccp(s.width*0.5, s.height*0.5)];
     
     
@@ -152,7 +159,67 @@ if ((touchLocation.x<s.width) && (touchLocation.y<s.height) ){
 }
 
 -(void)update:(CCTime)delta{
+    if (_btnSag.highlighted)
+    {
+        NSLog(@"BTNSAG DOKANDI LAA");
+        if([cowboy getActionByTag:2]==nil){
+            
+            if([cowboy getActionByTag:1]==nil){
+                [cowboy runAction:runAnimation];
+                
+                
+                
+                
+            }
+            
+            
+            
+            if (cowboy.position.x>220) {
+                CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.05 position:CGPointMake(_scrollView.position.x-5.0f, _scrollView.position.y)];
+                [_scrollView runAction:YerDegistir];
+            }
+            else{
+                
+                CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.05 position:CGPointMake(cowboy.position.x+5.0f, cowboy.position.y)];
+                [cowboy runAction:YerDegistir];
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    else{
+        
+        
+        
+        if([cowboy getActionByTag:1] ==nil){
+            if([cowboy getActionByTag:2]==nil)
+                [cowboy runAction:idleAnimation];
+            
+        }
+        //[cowboy stopAllActions];
+        //[cowboy runAction:idleAnimation];
+        
+        
+        
+        //[cowboy runAction:idleAnimation];
+        
+        
+        
+    }
+    
+   
+    
+   
 
+
+}
+
+-(void)zaman{
+    
+    
 
 }
 
