@@ -10,7 +10,20 @@
 #import "cocos2d.h"
 
 @interface Level2 : CCScene {
-    CCNode * cowboy;
+    CCSprite * cowboy;
+    NSMutableArray * runningDizi;
+    CCAnimation* running;
+    
+    NSMutableArray* idlingDizi;
+    CCAnimation* idling;
+    
+    
+    
+    CCActionAnimate * runAnimation;
+    CCActionAnimate * idleAnimation;
+    
+    
+    
 }
 
 +(Level2 *)scene;
