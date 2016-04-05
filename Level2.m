@@ -46,9 +46,10 @@
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"CowboyGirl.plist"];
     
     cowboy =[CCSprite spriteWithImageNamed:@"CowboyGirl/Idle (1).png"];
+    cowboy.scale*=0.6;
+     [cowboy setPosition:ccp(s.width*0.4, s.height*0.5)];
     
-     [cowboy setPosition:ccp(s.width*0.5, s.height*0.5)];
-    
+    //-----------KOŞMA AYARLARI---------------------------
     runningDizi = [NSMutableArray array];
     for (int i=1; i<=8; i++) {
         [runningDizi addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"CowboyGirl/Run (%d).png",i]]];
@@ -75,9 +76,16 @@
     //------------------------------------------------
     
     
-    [cowboy runAction:idleAnimation];
     
-    [self addChild:cowboy];
+    
+    //[self addChild:cowboy];
+    
+    [_physicsNode addChild:cowboy];
+    cowboy.physicsBody = [CCPhysicsBody bodyWithCircleOfRadius:10.0f andCenter:CGPointMake(0, 0)];
+    cowboy.physicsBody.type=CCPhysicsBodyTypeDynamic;
+    cowboy.physicsBody.affectedByGravity=TRUE;
+    
+    [cowboy runAction:idleAnimation];
     //[cowboy.animationManager runAnimationsForSequenceNamed:@"dead"];
     
     
@@ -92,10 +100,22 @@
     if ((touchLocation.x<s.width) && (touchLocation.y<s.height) ){
         
         //[self removeChild:cowboy];
-        
         NSLog(@"DOKANDI LAA");
         [cowboy stopAllActions];
         [cowboy runAction:runAnimation];
+        
+        if (cowboy.position.x>150) {
+            CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.1 position:CGPointMake(_scrollView.position.x-10.0f, _scrollView.position.y)];
+            [_scrollView runAction:YerDegistir];
+        }
+        else{
+        
+            CCActionMoveTo *YerDegistir = [CCActionMoveTo actionWithDuration:0.1 position:CGPointMake(cowboy.position.x+10.0f, cowboy.position.y)];
+            [cowboy runAction:YerDegistir];
+
+        }
+        
+        //[cowboy setPosition:ccp(cowboy.position.x+1.0f,cowboy.position.y)];
         //cowboy =[CCBReader load:@"running"];
         //cowboy.scale*=0.6;
         //[cowboy setPosition:ccp(s.width*0.5, s.height*0.5)];

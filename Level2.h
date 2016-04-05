@@ -16,6 +16,10 @@
     
     NSMutableArray* idlingDizi;
     CCAnimation* idling;
+  
+    CCScrollView * _scrollView;
+    
+    CCPhysicsNode * _physicsNode;
     
     
     
